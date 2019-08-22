@@ -1,0 +1,146 @@
+﻿\documentclass[UTF8]{ctexart}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2cm,bottom=2cm,headsep=0.5cm}
+\linespread{1.5}
+
+\begin{document}
+\newpagestyle{main}{
+    \sethead {第十三周} {《计算系统基础》作业} {nyako}
+    \setfoot {} {\thepage} {\today}
+    \headrule
+    \footrule
+}
+\pagestyle{main}
+\noindent\textbf{15.1}\quad\texttt{4 1 -1}\\
+\noindent\textbf{15.2}\quad\texttt{24 288 27648}\\
+\noindent\textbf{15.3}\\
+\indent\texttt{x = 1, y = 2}\\
+\indent\texttt{x = 2, y = 1}\\
+\indent\texttt{x = 1, y = 2}\\
+\noindent\textbf{15.9}
+\linespread{1}
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+
++   int Func1(int, int);
++   int Func2(int);
+
+    int main() {
+        int x = 1;
+        int y = 2;
+
+        x = Func1(x, y);
+        y = Func2(y);
+
+        printf("x = %d y = %d\n", x, y);
+    }
+
+-   int Func1(int x) {
++   int Func1(int x, int y) {
+        return x + y;
+    }
+
+    int Func2(int x) {
+        int y;
+?       //此处的 y 没有初始化，但不知 Func2 的具体功能，因而无法判断.
+        return x - y;
+    }
+\end{lstlisting}
+
+\noindent\textbf{15.7}
+\begin{lstlisting}[numbers = none]
+ToUpper:  SUBI  R29, R29, #4
+          SW    0(R29), R30
+          ADDI  R30, R29, #4
+          SUBI  R29, R29, #4
+          SW    0(R29), R16
+          ;
+          SLTI  R8, R4, x61
+          BNEZ  R8, J1
+          SLEI  R8, R4, x7A
+          BEQZ  R8, J1
+          SUBI  R4, R4, x20
+J1:       ADDI  R16, R4, #0
+          ADDI  R2, R16, #0
+          ;
+          LW    R16, 0(R29)
+          ADDI  R29, R29, #4
+          LW    R30, 0(R29)
+          ADDI  R29, R29, #4
+          RET
+\end{lstlisting}
+
+\pagebreak
+
+\linespread{1.5}
+\noindent\textbf{16.1}\\
+\indent 1). \texttt{5}\\
+\indent 2). 运行时栈中有三个变量x, ptr1, ptr2，其中，ptr2的值为ptr1的地址，ptr1的值为x的地址，x的值为5.\\
+
+\noindent\textbf{16.2}\\
+\indent 1). \texttt{9}\\
+\indent 2). \texttt{HELLO}
+
+\noindent\textbf{16.9}
+\linespread{1}
+\begin{lstlisting}[numbers = none]
+StringLength:   SUBI  R29, R29, #4
+                SW    0(R29), R16
+                ;
+                ADDI  R16, R0, #0
+J1:             ADDI  R8, R4, R16
+                LB    R9, 0(R8)
+                BEQZ  R9, J2
+                ADDI  R16, R16, #1
+                J     J1
+J2:             ADDI  R2, R16, #0
+                ;
+                LW    R16, 0(R29)
+                ADDI  R29, R29, #4
+                RET
+\end{lstlisting}
+
+\noindent\textbf{16.10}
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+
+    char* ToUpper(char* inchar);
+  
+    int main() {
+        char str[10];
+  
+        printf("Enter a string: ");
+        scanf("%s", str);
+  
+        printf("%s\n", ToUpper(str));
+    }
+  
+    char* ToUpper(char* inchar) {
+-       char str[10];
++       char* str = inchar;
+        int i = 0;
+        while (*(inchar + i) != '\0') {
+            if ('a' <= *(inchar + i) && *(inchar + i) <= 'z')
+                *(str + i) = *(inchar + i) - ('a' - 'A');
+            else
+                *(str + i) = *(inchar + i);
+            i++;
+        }
+        return str;
+    }
+\end{lstlisting}
+
+\linespread{1.5}
+
+\noindent\textbf{16.14}\quad\texttt{abc123}
+
+\end{document}

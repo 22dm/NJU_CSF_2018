@@ -1,0 +1,11 @@
+            .DATA	x30000000
+            .TEXT   x40000000
+            .GLOBAL  MAIN
+MAIN :      ADDI    R10, R0, 0
+PLUS :      ANDI    R11, R9, 1
+            BEQZ    R11, MOVE
+            ADD     R10, R10, R8
+MOVE :      SRLI    R9, R9, 1
+            SLLI    R8, R8, 1
+            BNEZ    R9, PLUS
+            TRAP    x00

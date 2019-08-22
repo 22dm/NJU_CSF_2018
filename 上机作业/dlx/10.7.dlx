@@ -1,0 +1,11 @@
+            .DATA	x30000000
+            .TEXT   x40000000
+            .GLOBAL  MAIN
+MAIN :      ADDI    R10, R0, 0
+COMP :      SLE     R12, R8, R9
+            BEQZ    R12, EXIT
+            SUB     R9, R9, R8
+            ADDI    R10, R10, 1
+            J       COMP
+EXIT :      ADDI    R11, R9, 0
+            TRAP    x00

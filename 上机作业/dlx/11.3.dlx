@@ -1,0 +1,16 @@
+            .DATA	x30000000
+            .TEXT   x40000000
+            .GLOBAL  MAIN
+MAIN :      LHI     R10, x3000
+            ADDI    R11, R0, 0
+            TRAP    x06
+COMP :      LB      R8, 0(R10)
+            SEQI    R12, R8, x04
+            BNEZ    R12, EXIT
+            SEQ     R9, R8, R4
+            ADD     R11, R11, R9
+            ADDI    R10, R10, 1
+            J       COMP
+EXIT :      ADDI    R4, R11, #48
+            TRAP    x07
+            TRAP    x00

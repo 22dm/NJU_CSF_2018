@@ -1,0 +1,75 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.3cm,bottom=2cm,headsep=0.5cm}
+
+
+\begin{document}
+
+\newpagestyle{main}{
+    \sethead {第八周} {《计算系统基础》作业} {nyako}
+    \setfoot {} {\thepage} {\today}
+    \headrule
+    \footrule
+}
+\pagestyle{main}
+\linespread{1.5}
+\noindent\textbf{8.2}\\
+\indent1). 单元0包含$0000\ 0000_2$，单元4包含$0100\ 0010_2$.\\
+\indent2).\\
+\indent\indent\textcircled{\scriptsize{1}}. 单元0：0，单元1：$-2$\\
+\indent \indent\textcircled{\scriptsize{2}}. 单元2：128，单元3：127\\
+\indent\indent\textcircled{\scriptsize{3}}. 单元4：B\\
+\indent\indent\textcircled{\scriptsize{4}}. $\rm 0\ 1000\ 0101\ 101\ 0101\ 1000\ 0000\ 0000\ 0000_{IEEE\ 754}=106.75$\\
+\indent3). 将R3和R4里的内容相加，结果存回R5里.\\
+\indent4). 单元11指向单元1，其中的数为$1111\ 1110_2$.\\
+\noindent\textbf{8.3} 可知补码整数有$16-\lceil\log_{2}{12}\rceil-2\times\lceil\log_{2}{8}\rceil=6$位，范围为$-2^{5}$到$2^{5}-1$，即$-32$到$31$.\\
+\noindent\textbf{8.4} 可知无符号整数有$32-\lceil\log_{2}{200}\rceil-3\times\lceil\log_{2}{60}\rceil=6$位，最大数为$2^{6}-1$，即$63$.\\
+\noindent\textbf{9.1}\\
+\indent 1). 立即数有16位，范围为$-2^{15}$到$2^{15}-1$，即$-32768$到$32767$.\\
+\indent 2). 范围为$0$到$2^{16}-1$，即$0$到$65535$.\\
+\indent 3). 所能加载的最大地址为$\rm 0x4000\ 0000 + 0xFFFC +0x3= 0x4000\ FFFF$.\\
+\indent 4). 表示寄存器所需的位数减1，故立即数位数增加2，可表示的最大值为$2^{17}-1$，即$133071$.\\
+\noindent\textbf{9.2} R - 类型指令有5个未用位，增加寄存器需要多用$3\times(\log_{2}{128}-\log_{2}{32})=6$位，故不可以.\\
+\noindent\textbf{9.3}\\
+\indent 1). 需要$\log_{2}{65536}=16$位表示地址.\\
+\indent 2). 偏移值为$20-(10+1)=9$.\\
+\noindent\textbf{9.4} \texttt{001101 01000 01001 0000 0000 0000 0011 (SLLI R9, R8, \#3)}\\
+\noindent\textbf{9.5}\\
+\indent 1). \texttt{000001 00001 00010 0000 0000 0000 0000 (ADDI R2, R1, \#0)}\\
+\indent 2). \texttt{001011 00001 00001 1111 1111 1111 1111 (XORI R1, R1, \#0xFFFF)}\\
+\indent 3). \texttt{001001 00001 00001 0000 0000 0000 0011 (ANDI R1, R1, \#3)}\\
+\noindent\textbf{9.9}
+\begin{center}
+    \texttt{$\rm R_1$=0x4000 0000}\quad\quad
+    \texttt{$\rm R_2$=0x4321 0000}\quad\quad
+    \texttt{$\rm R_3$=0x0000 0043}\\
+    \texttt{$\rm R_4$=0x0000 8000}\quad\quad
+    \texttt{$\rm R_5$=0x0000 0021}\quad\quad
+    \texttt{$\rm R_6$=0x0000 4000}\\
+\end{center}
+\noindent\textbf{9.10} 前三次计算后，$\rm R_{3}=\overline{\overline{R_{1}}+R_{2}}$，跳转说明$\rm R_{3}=0$，即$\rm \overline{R_{1}}+R_{2}=-1$，所以$\rm R_{1}=R_{2}$.\\
+\noindent\textbf{9.11} 此程序等价于
+\linespread{1}
+\begin{lstlisting}[language=C]
+R1 = 0;
+R3 = 16;
+R4 = 1;
+do {
+    R5 = R2 & R4;
+    if (R5 != 0)
+        R1 = R1 + 1;
+    R4 = R4 << 1;
+    R3 = R3 - 1;
+} while (R3 != 0);
+    \end{lstlisting}
+\linespread{1.5}
+即计算$\rm R_2$的低16位中1的个数，因此可知$\rm R_2$的低16位中有7个1.
+\end{document}

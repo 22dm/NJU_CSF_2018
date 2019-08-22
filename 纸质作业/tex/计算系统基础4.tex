@@ -1,0 +1,50 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings} 
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2cm,headsep=0.5cm}
+\linespread{1}
+
+\begin{document}
+
+\newpagestyle{main}{
+    \sethead {第四周} {《计算系统基础》作业} {nyako}
+    \setfoot {} {\thepage} {\today}
+    \headrule
+    \footrule
+}
+\pagestyle{main}
+
+\paragraph{2.3.}
+Java是解释型语言，因为其编译为字节码后需要由JVM来解释运行.
+
+\paragraph{2.5.}
+解释：3次；编译：1次.
+
+\paragraph{2.6\\}
+1).\begin{lstlisting}[showspaces=true, showlines=true]
+12
+57
+
+\end{lstlisting}
+2).\begin{lstlisting}[showspaces=true, showlines=true]
+12,57
+
+\end{lstlisting}
+3).\begin{lstlisting}[showspaces=true, showlines=true]
+12 57
+
+\end{lstlisting}
+4).\begin{lstlisting}[showspaces=true, showlines=true]
+1257
+
+\end{lstlisting}
+5).\begin{lstlisting}[showspaces=true, showlines=true]
+12.57
+
+\end{lstlisting}
+\end{document}

@@ -1,0 +1,171 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings} 
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2cm,headsep=0.5cm}
+\linespread{1}
+
+\begin{document} 
+
+\newpagestyle{main}{            
+    \sethead {第六周} {《计算系统基础》作业} {nyako}
+    \setfoot {} {\thepage} {\today}
+    \headrule
+    \footrule
+}
+\pagestyle{main}
+\paragraph{5.1\\}
+1).
+\begin{lstlisting}[language=C]
+-   #define TRUE 1;
++   #define TRUE 1
+
+    if (TRUE)
+        printf("True");
+    else
+        printf("False");
+
+\end{lstlisting}
+2).
+\begin{lstlisting}[language=C]
+-   if (x == 0)
++   if (x == 0) {
+        a++;
+        b--;
+-   else
++   }
++   else {
+        a--;
+        b++;
++   }
+\end{lstlisting}
+\paragraph{5.2\\}
+1).
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+
+    int main() {
+        int i = 0;
+        int sum = 0;
+
+-       for (; i >= 10; ++i)
++       for (; i <= 10; ++i)
+            sum = sum + i;
+        printf("%d\n", sum);
+    }
+\end{lstlisting}
+2).
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+
+    int main() {
+        int i = 0;
+        int sum = 0;
+
+-       while (i < 10)
++       while (i <= 10)
+            sum = sum + i++;
+        printf("%d\n", sum);
+    }
+\end{lstlisting}
+3).
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+
+    int main() {
+        int i;
+        int sum = 0;
+
+        for (i = 0; i <= 10;)
+-           sum = sum + ++i ;
++           sum = sum + i++;
+        printf("%d\n", sum);
+    }
+\end{lstlisting}
+4).
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+
+    int main() {
+        int i;
+        int sum = 0;
+
+        for (;;)
+            if (i < 10) {
+                sum = sum + ++i;
+-               printf("%d\n", sum);
+            }
+            else
+            break;
++       printf("%d\n", sum);
+    }
+\end{lstlisting}
+\paragraph{5.3}
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+
+    int main() {
+        int valueA, valueB;
+        int num, divisor;
+        int prime;
+
+        printf("Enter the valueA:");
+        scanf("%d", &valueA);
+
+        printf("Enter the valueB:");
+        scanf("%d", &valueB);
+
+        for (num = valueA; num <= valueB; num++) {
+            prime = 1;
+
+-           for (divisor = 2; divisor <= num; divisor++)
++           for (divisor = 2; divisor < num; divisor++)
+                if ((num % divisor) == 0) {
+                    prime = 0;
+                }
+            if (prime)
+                printf("The number %d is prime\n", num);
+        }
+    }
+\end{lstlisting}
+\paragraph{5.4}
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+
+    int main() {
++       int year;
+        int month;
+        int day;
+        int sum;
+
+-       printf("Input the date(month day):");
+-       scanf("%d%d", &month, &day);
++       printf("Input the date(year month day):");
++       scanf("%d%d%d", &year, &month, &day);
+
+        switch (month) {
+            case 1: sum = day; break;
+            case 2: sum = day + 31; break;
+            case 3: sum = day + 59; break;
+            case 4: sum = day + 90; break;
+            case 5: sum = day + 120; break;
+            case 6: sum = day + 151; break;
+            case 7: sum = day + 181; break;
+            case 8: sum = day + 212; break;
+            case 9: sum = day + 243; break;
+            case 10: sum = day + 273; break;
+            case 11: sum = day + 304; break;
+            case 12: sum = day + 334; break;
+        }
++       sum += !(year % (year % 100 ? 4 : 400)) && month > 2;
+
+-       printf("%d.%d is the %dth days.\n", month, day, sum);
++       printf("%d.%d.%d is the %dth days.\n", year, month, day, sum);
+    }
+\end{lstlisting}
+\end{document}

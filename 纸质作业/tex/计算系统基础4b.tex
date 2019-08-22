@@ -1,0 +1,79 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings} 
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2cm,headsep=0.5cm}
+\linespread{1}
+
+\begin{document}
+
+\newpagestyle{main}{
+    \sethead {第四周\hspace{1em}第二次} {《计算系统基础》作业} {nyako}
+    \setfoot {} {\thepage} {\today}
+    \headrule
+    \footrule
+}
+\pagestyle{main}
+
+\paragraph{3.1.}
+\begin{lstlisting}[showspaces=true, showlines=true]
+8
+
+210.000000,3000.000000,0.500000,-0.500000
+
+\end{lstlisting}
+
+\paragraph{3.2.}
+\begin{center}
+    \begin{tabular}{rccc}
+        \toprule
+                                        & 表达式 & \texttt{a} & \texttt{b} \\
+        \midrule
+        \texttt{a = b}                  & 8      & 8          &            \\
+        \texttt{a = b = 5}              & 5      & 5          & 5          \\
+        \texttt{a \% b}                 & 7      &            &            \\
+        \texttt{b \% a}                 & 1      &            &            \\
+        \texttt{a || b}                 & 1      &            &            \\
+        \texttt{a \&\& b}               & 1      &            &            \\
+        \texttt{!(a / b)}               & 1      &            &            \\
+        \texttt{++a + b--}              & 16     & 8          & 7          \\
+        \texttt{a = b += 1}             & 9      & 9          & 9          \\
+        \texttt{a = (b++ == 8) ? a : b} & 7      &            & 9          \\
+        \texttt{a = (++b == 8) ? a : b} & 9      & 9          & 9          \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\paragraph{3.4}
+\begin{lstlisting}
+(a + b) - ((c * d) / e))
+a + (b - (c * (d / e)))
+(((a + b) - c) * d) / e
+(a + (b - c)) * (d / e)
+(((a + b) - c) * d) / e
+a + (b - (c * (d / e)))
+(((a + b) - c) * d) / e
+a + (b - (c * (d / e)))
+
+\end{lstlisting}
+
+\paragraph{3.6\\}
+1).
+\begin{lstlisting}[language=C]
+int temp = a;
+a = b;
+b = temp;
+
+\end{lstlisting}
+2).
+\begin{lstlisting}[language=C]
+a ^= b;
+b ^= a;
+a ^= b;
+
+\end{lstlisting}
+\end{document}

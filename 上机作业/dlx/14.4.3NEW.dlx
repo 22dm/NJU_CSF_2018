@@ -1,0 +1,43 @@
+            .DATA	x30000000
+ASCIIBUFF : .ASCII  "x12abCD"
+            .TEXT   x40000000
+            .GLOBAL  MAIN
+		;
+MAIN :      ADDI    R9, R0, ASCIIBUFF		;R9 指向输入字符串首字符
+            ADDI    R16, R0, 0		;输出储存在 R16
+            LB      R8, 0(R9)		;判断字符串首位是否为 x，R10 保存这个结果
+            SEQI    R10, R8, x78
+            BEQZ    R10, CHKSIGN
+            ADDI    R9, R9, #1		;指针后移
+            SUBI    R1, R1, #1
+            LB      R8, 0(R9)
+CHKSIGN :   SEQI    R12, R8, x2D		;判断字符串是否为负数，R12 保存这个结果
+            BEQZ    R12, LOOP
+NEXT :      ADDI    R9, R9, #1		;指针后移
+            SUBI    R1, R1, #1
+            LB      R8, 0(R9)		;读取当前 R9 指向的字符
+LOOP :      BEQZ    R1, SIGN		;如果字符串已结束，结束程序
+            JAL     ADDNUM		;将 R8 加在 R16 之后
+            J       NEXT
+		;
+ADDNUM :    SUBI    R8, R8, x30		;判断 R8 中是否为 0-9
+            SLEI    R11, R8, #9
+            BNEZ    R11, LSHIFT
+            SUBI    R8, R8, x7		;判断 R8 中是否为 A-F
+            SLEI    R11, R8, #15
+            BNEZ    R11, HEX
+            SUBI    R8, R8, x20		;判断 R8 中是否为 a-f
+            SLEI    R11, R8, #15
+            BNEZ    R11, HEX
+LSHIFT :    BNEZ    R10, HEX		;R16 根据 R10 的值乘 10 或 16
+            SLLI    R11, R16, #1		;10 进制数
+            SLLI    R16, R16, #3
+            ADD     R16, R16, R11
+            J       PLUS
+HEX :       SLLI    R16, R16, #4		;16 进制数
+PLUS :      ADD     R16, R16, R8		;将 R8 的值加在末尾
+            RET     
+		;
+SIGN :      BEQZ    R12, EXIT		;取相反数
+            SUB     R16, R0, R16
+EXIT :      TRAP    x00

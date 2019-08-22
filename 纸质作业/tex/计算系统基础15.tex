@@ -1,0 +1,68 @@
+﻿\documentclass[UTF8,fontset=fandol]{ctexart}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2cm,bottom=2cm,headsep=0.5cm}
+\linespread{1.5}
+
+\begin{document}
+\newpagestyle{main}{
+    \sethead {第十五周} {《计算系统基础》作业} {nyako}
+    \setfoot {} {\thepage} {\today}
+    \headrule
+    \footrule
+}
+\pagestyle{main}
+\noindent\textbf{17.1}\\
+\indent 1). 求m与n的最大公约数.\\
+\indent 2). 求$\lfloor\log_n m\rfloor$.\\
+\noindent\textbf{17.2}\\
+\indent 1). 计算$1+2+\cdots+x$.\\
+\indent 2).
+\linespread{1}
+\begin{lstlisting}[language=C,numbers=none]
+        int Func(int x) {
+            int sum = 0;
+            while (x != 0) {
+                sum += x;
+                x--;
+            }
+            return sum;
+        }
+\end{lstlisting}
+\linespread{1.5}
+
+为了不溢出，x最大为$2^{16}-1$.\\
+\indent 3).
+\linespread{1}
+\begin{lstlisting}[numbers=none]
+        FUNC:   SUBI  R29, R29, #4
+                SW    0(R29), R4
+                SUBI  R29, R29, #4
+                SW    0(R29), R31
+                ;
+                BEQZ  R4, BASE
+                SUBI  R4, R4, #1
+                JAL   FUNC
+                ADDI  R4, R4, #1
+                ADD   R2, R2, R4
+                J     END
+        BASE:   ADDI  R2, R0, #0
+                ;
+        END:    LW    R31, 0(R29)
+                ADDI  R29, R29, #4
+                LW    R4, 0(R29)
+                ADDI  R29, R29, #4
+                RET
+\end{lstlisting}
+\linespread{1.5}
+
+\indent 4). 运行时栈共$1\text{ KB}\div4\text{ B}=256$字，每次递归需要2字，故x最大为127.
+\end{document}

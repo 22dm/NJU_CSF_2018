@@ -1,0 +1,22 @@
+            .DATA	x30000000
+            .TEXT   x40000000
+            .GLOBAL  MAIN
+MAIN :      ADDI    R9, R0, 0
+            LHI     R9, x3000
+		;
+LOOP :      LB      R8, 0(R9)
+            SEQI    R10, R8, x04
+            BNEZ    R10, EXIT
+            JAL     TOUPPER
+            SB      0(R9), R8
+            ADDI    R9, R9, #1
+            J       LOOP
+		;
+TOUPPER :   SLEI    R10, R8, x7A
+            SLTI    R11, R8, x61
+            XOR     R10, R10, R11
+            SLLI    R10, R10, #5
+            SUB     R8, R8, R10
+            RET     
+		;
+EXIT :      TRAP    x00

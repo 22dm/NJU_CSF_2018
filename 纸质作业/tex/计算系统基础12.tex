@@ -1,0 +1,316 @@
+﻿\documentclass[UTF8]{ctexart}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{forest}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2cm,headsep=0.5cm}
+\linespread{1.5}
+
+\begin{document}
+\newpagestyle{main}{
+	\sethead {第十二周} {《计算系统基础》作业} {nyako}
+	\setfoot {} {\thepage} {\today}
+	\headrule
+	\footrule
+}
+\pagestyle{main}
+\noindent\textbf{12.6}
+\begin{lstlisting}[numbers = none]
+    A:      .word xFFFF0010
+    ;
+    START:  LW    R1, A(R0)
+            LW    R2, 0(R1)
+            BEQZ  R2, START
+            LW    R4, 0(R1)
+            J     NEXT_TASK
+\end{lstlisting}
+
+\noindent\textbf{12.7}
+\begin{multicols}{2}
+	\indent 输入例程:
+	\begin{lstlisting}[numbers = none]
+    A:      .word xFFFF0010
+    B:      .word xFFFF0004
+    ;
+    START:  LW    R1, A(R0)
+            LW    R2, 0(R1)
+            ANDI  R3, R2, 2
+            BEQZ  R3, START
+            LW    R1, B(R0)
+            LW    R4, 0(R1)
+            J     NEXT_TASK
+\end{lstlisting}
+	
+	\vfill\null
+	\columnbreak
+	
+	\indent 输出例程:
+	\begin{lstlisting}[numbers = none]
+    A:      .word xFFFF0010
+    B:      .word xFFFF000C
+    ;
+    START:  LW    R1, A(R0)
+            LW    R2, 0(R1)
+            ANDI  R3, R2, 1
+            BEQZ  R3, START
+            LW    R1, B(R0)
+            SW    0(R1), R4
+            J     NEXT_TASK
+\end{lstlisting}
+\end{multicols}
+
+\noindent\textbf{12.8} 在屏幕上显示a到z.\\
+
+\noindent\textbf{13.3} 1). \texttt{TRAP x0C}\\
+2). 可以，在进入\texttt{GETC}与\texttt{OUT}两个例程之前，\texttt{R31}已被储存，返回后，程序仍可以按照正常顺序执行.\\
+
+\noindent\textbf{13.4} 1). 每个服务例程占用$2^8=256$个存储单元，256个共占用$2^8*256=2^{16}=65536$个存储单元.\\
+2). 占用$2^{10}*256=2^{18}=262144$个存储单元.\\
+
+\noindent\textbf{13.5} 程序开始将\texttt{x00000018}到\texttt{x0000001B}中存入了\texttt{0}，造成在执行\texttt{TRAP x06}例程时，程序无法从TRAP向量表中找到该例程的起始地址，导致出错.\\
+
+\noindent\textbf{13.7} \texttt{abcd}\\
+
+\noindent\textbf{13.10} 1). 不断打印A，当任意键被按下时，有可能输出被按下的字符（取决于按下时，程序是否已经执行完\texttt{ADDI R4, R0, x41})，并继续输出A.\\
+2). 程序会不断打印A，当8被按下时，有可能输出8或者88（取决于按下时，程序是否已经执行完\texttt{ADDI R4, R0, x41})，并继续输出A.\\
+
+\noindent\textbf{13.13} 1).
+\begin{lstlisting}[language=C, numbers = none]
+    printf("(%d)-%d-%d", a, b, c);
+\end{lstlisting}
+\indent 2).
+\begin{lstlisting}[language=C, numbers = none]
+    int a, b, c;
+    scanf("(%d)%d,%d", &a, &b, &c);
+\end{lstlisting}
+
+\noindent\textbf{13.14} 1). \texttt{0201\textvisiblespace}\\
+2). \texttt{1020CD}\\
+3). \texttt{001C}\\
+
+\noindent\textbf{14.7} 判断\texttt{NUM}是否为素数，如果是，\texttt{RESULT}为\texttt{1}，否则为\texttt{0}.\\
+
+\noindent\textbf{14.8} 将\texttt{DATA}中的数据按照从小到大排序(冒泡排序).\\
+
+\noindent\textbf{14.9} \texttt{R31}的值在进入\texttt{SubB}后会改变，导致无法从\texttt{SubA}中返回\texttt{main}，可作如下改动:
+\begin{lstlisting}[numbers = none, tabsize = 2]
+	         .data   x30000000
+	NUM:     .word   #8
++ SaveR31: .space  #4
+	;
+					 .text   x40000000
+					 .global main
+	main:    JAL     SubA
+					 TRAP    x07
+					 TRAP    x00
+	;
+	SubA:		 LW			 R1, NUM(R0)
++ 				 SW			 SaveR31(R0), R31
+					 JAL		 SubB
++ 				 LW      R31, SaveR31(R0)
+					 RET
+	;
+	SubB:    ADDI		 R4, R1, x30
+					 RET
+\end{lstlisting}
+
+\noindent\textbf{14.10} 屏幕显示\texttt{Please enter your string:}，用户输入一个字符串，每输入一个字符，屏幕同时回显该字符，直到遇到回车或长度达到100结束，随后输出这个字符串的逆序.\\
+
+\noindent\textbf{11.18}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {};
+		\node (b1) at (1.5,-0.5) {};
+		\node (b2) at (2.5,-0.5) {};
+		\node (b3) at (3.5,-0.5) {};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (-0.5,-1.5)--++(0,0.5);
+		\node (p) at (-0.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {1};
+		\node (b1) at (1.5,-0.5) {};
+		\node (b2) at (2.5,-0.5) {};
+		\node (b3) at (3.5,-0.5) {};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (0.5,-1.5)--++(0,0.5);
+		\node (p) at (0.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {1};
+		\node (b1) at (1.5,-0.5) {2};
+		\node (b2) at (2.5,-0.5) {};
+		\node (b3) at (3.5,-0.5) {};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (1.5,-1.5)--++(0,0.5);
+		\node (p) at (1.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {1};
+		\node (b1) at (1.5,-0.5) {2};
+		\node (b2) at (2.5,-0.5) {3};
+		\node (b3) at (3.5,-0.5) {};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (2.5,-1.5)--++(0,0.5);
+		\node (p) at (2.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {1};
+		\node (b1) at (1.5,-0.5) {2};
+		\node (b2) at (2.5,-0.5) {3};
+		\node (b3) at (3.5,-0.5) {};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (1.5,-1.5)--++(0,0.5);
+		\node (p) at (1.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {1};
+		\node (b1) at (1.5,-0.5) {2};
+		\node (b2) at (2.5,-0.5) {4};
+		\node (b3) at (3.5,-0.5) {};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (2.5,-1.5)--++(0,0.5);
+		\node (p) at (2.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {1};
+		\node (b1) at (1.5,-0.5) {2};
+		\node (b2) at (2.5,-0.5) {4};
+		\node (b3) at (3.5,-0.5) {5};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (3.5,-1.5)--++(0,0.5);
+		\node (p) at (3.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {1};
+		\node (b1) at (1.5,-0.5) {2};
+		\node (b2) at (2.5,-0.5) {4};
+		\node (b3) at (3.5,-0.5) {5};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (2.5,-1.5)--++(0,0.5);
+		\node (p) at (2.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\begin{center}
+	\begin{tikzpicture}
+		\draw[draw=none] (-1,0) rectangle (5,-1);
+		\draw (0,0)--(5,0);
+		\draw (0,-1)--(5,-1);
+		
+		\foreach \i in {0,...,5}{
+				\draw (\i,0)--++(0,-1);
+			}
+		
+		\node (b) at (-0.5,-0.5) {};
+		\node (b0) at (0.5,-0.5) {1};
+		\node (b1) at (1.5,-0.5) {2};
+		\node (b2) at (2.5,-0.5) {4};
+		\node (b3) at (3.5,-0.5) {5};
+		\node (b4) at (4.5,-0.5) {};
+		
+		\draw[->] (1.5,-1.5)--++(0,0.5);
+		\node (p) at (1.5,-1.8) {栈顶};
+	\end{tikzpicture}
+\end{center}
+\end{document}
+

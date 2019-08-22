@@ -1,0 +1,59 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings} 
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2cm,headsep=0.5cm}
+\linespread{1}
+
+\begin{document}
+
+\newpagestyle{main}{
+	\sethead {第三周} {《计算系统基础》作业} {nyako}
+	\setfoot {} {\thepage} {\today}
+	\headrule
+	\footrule
+}
+\pagestyle{main}
+
+\paragraph{1.2.}
+一样多，通用计算机都可解决相同的问题.
+
+\paragraph{1.6.}
+1).
+令$sum=0$，对于$i$从$1$到$10$，分别用$sum$加上$i$，$sum$即为所求.
+\\\\
+2).
+如果年份是$400$的倍数，或者是$4$的倍数但不是$100$的倍数.
+\\\\
+3).
+如果对所有的$2\le i\le n$，均有$i\nmid n$，则$n$为素数，否则为合数.
+
+\paragraph{3.}
+\begin{center}
+	\begin{tabular}{cccc}
+		\toprule
+		问题       & 明天下雨的概率 & 今天是星期几 & 求图形的面积 \\
+		\midrule
+		算法       & 将两个数相加   & 辗转相除法   & 深度优先搜索 \\
+		\midrule
+		程序       & Chrome         & Word         & Photoshop    \\
+		\midrule
+		语言处理   & GCC            & JVM          & CPython      \\
+		\midrule
+		操作系统   & Windows        & Linux        & BSD          \\
+		\midrule
+		指令集结构 & x86            & ARM          & MIPS         \\
+		\midrule
+		微处理器   & Intel 4004     & MOS 6502     & Intel 8086   \\
+		\midrule
+		逻辑电路   & 加法器         & 译码器       & 寄存器       \\
+		\midrule
+		元件       & 晶体管         & 电容         & 电阻         \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+\end{document}

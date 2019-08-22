@@ -1,0 +1,15 @@
+            .DATA	x30000000
+            .TEXT   x40000000
+            .GLOBAL  MAIN
+MAIN :      ADDI    R8, R0, 1
+            ADDI    R9, R0, 0
+            ADDI    R16, R0, 0
+            TRAP    x06
+            SUBI    R4, R4, #48
+COMP :      ADD     R16, R8, R9
+            ADDI    R8, R9, 0
+            ADDI    R9, R16, 0
+            SUBI    R4, R4, 1
+            SLE     R10, R0, R4
+            BNEZ    R10, COMP
+            TRAP    x00

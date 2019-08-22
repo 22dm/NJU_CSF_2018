@@ -1,0 +1,144 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings} 
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2cm,headsep=0.5cm}
+\linespread{1}
+
+\begin{document}
+
+\newpagestyle{main}{
+	\sethead {第五周} {《计算系统基础》作业} {nyako}
+	\setfoot {} {\thepage} {\today}
+	\headrule
+	\footrule
+}
+\pagestyle{main}
+
+\paragraph{4.1.\\}
+\texttt{x = 0}时，\\
+1).
+\begin{lstlisting}[showspaces=true, showlines=true]
+True.
+\end{lstlisting}
+2).
+\begin{lstlisting}[showspaces=true, showlines=true]
+True.
+\end{lstlisting}
+3).\begin{lstlisting}[showspaces=true, showlines=true]
+x equals 1
+
+\end{lstlisting}
+4).\begin{lstlisting}[showspaces=true, showlines=true]
+x equals 0
+
+\end{lstlisting}
+5).\begin{lstlisting}[showspaces=true, showlines=true]
+x equals 0
+x equals 1
+
+\end{lstlisting}
+\vspace{1em}
+\texttt{x = 1}时，\\
+1).
+\begin{lstlisting}[showspaces=true, showlines=true]
+True.
+\end{lstlisting}
+2).
+\begin{lstlisting}[showspaces=true, showlines=true]
+True.
+\end{lstlisting}
+3).\begin{lstlisting}[showspaces=true, showlines=true]
+x equals 1
+
+\end{lstlisting}
+4).\begin{lstlisting}[showspaces=true, showlines=true]
+x equals 1
+
+\end{lstlisting}
+5).\begin{lstlisting}[showspaces=true, showlines=true]
+x equals 1
+
+\end{lstlisting}
+\vspace{1em}\texttt{x = 2}时，\\
+1).
+\begin{lstlisting}[showspaces=true, showlines=true]
+True.
+\end{lstlisting}
+2).
+\begin{lstlisting}[showspaces=true, showlines=true]
+False.
+\end{lstlisting}
+3).\begin{lstlisting}[showspaces=true, showlines=true]
+x equals 1
+
+\end{lstlisting}
+4).\begin{lstlisting}[showspaces=true, showlines=true]
+x does not equal 0 or 1
+
+\end{lstlisting}
+5).\begin{lstlisting}[showspaces=true, showlines=true]
+x does not equal 0 or 1
+
+\end{lstlisting}
+
+\paragraph{4.5.\\}
+1).
+\begin{lstlisting}[showspaces=true, showlines=true]
+196
+
+\end{lstlisting}
+2).
+\begin{lstlisting}[showspaces=true, showlines=true]
+112
+
+\end{lstlisting}
+3).\begin{lstlisting}[showspaces=true, showlines=true]
+105
+
+\end{lstlisting}
+4).\begin{lstlisting}[showspaces=true, showlines=true]
+0
+\end{lstlisting}
+5).\begin{lstlisting}[showspaces=true, showlines=true]
+0
+\end{lstlisting}
+
+\paragraph{4.8}
+\begin{lstlisting}[showspaces=true, showlines=true]
+sum=
+
+\end{lstlisting}
+等号后的值为\[\sum_{i=1}^{input}\sum_{j=0}^{i-1}j=\frac{(input-1)input(input+1)}6\]
+
+\paragraph{4.9.\\}
+1).
+\begin{lstlisting}[showspaces=true, showlines=true]
+####
+###*
+##**
+#***
+
+\end{lstlisting}
+2).
+\begin{lstlisting}[showspaces=true, showlines=true]
+#&
+&
+&*
+\end{lstlisting}
+
+\paragraph{4.10.}
+\begin{lstlisting}[language=C]
+for (i = 1; i < 10; i++) {
+    if (i % 2 != 0)
+        printf("%d", i);
+}
+
+\end{lstlisting}
+
+\end{document}

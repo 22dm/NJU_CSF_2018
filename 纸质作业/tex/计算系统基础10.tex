@@ -1,0 +1,110 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2cm,headsep=0.5cm}
+\linespread{1.5}
+
+\begin{document}
+\newpagestyle{main}{
+	\sethead {第十周} {《计算系统基础》作业} {nyako}
+	\setfoot {} {\thepage} {\today}
+	\headrule
+	\footrule
+}
+\pagestyle{main}
+\noindent\textbf{10.1}\quad 将内存中\texttt{x3000 0000}开始的5个32位整数分别加上\texttt{x3000 0014}开始的5个32位整数，并存回.\\
+\noindent\textbf{10.2}\quad R1的初始值的二进制表示含有7个1时，R2的最终结果为7.\\
+\noindent\textbf{11.8}\quad 1).
+\begin{center}
+	\begin{tabular}{cc}
+		\toprule
+		符号               & 地址                \\
+		\midrule
+		\texttt{SaveR2}    & \texttt{x0000 7000} \\
+		\texttt{SaveR4}    & \texttt{x0000 7004} \\
+		\texttt{HelloWorld} & \texttt{x0000 7008} \\
+		\texttt{main}      & \texttt{x4000 0000} \\
+		\texttt{LOOP}      & \texttt{x4000 000C} \\
+		\texttt{Return}    & \texttt{x4000 0020} \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+2). 该程序实现了输出\texttt{Hello, World!}，且将寄存器的值改回了运行程序前的状态.\\
+\noindent\textbf{11.10}\quad 1).
+\begin{center}
+	\begin{tabular}{cll}
+		\toprule
+		\texttt{x3000 0000}          & \multicolumn{1}{c}{$\vdots$}                    & \multicolumn{1}{c}{\texttt{NUM1}} \\
+		\texttt{x3000 0004}          & \multicolumn{1}{c}{$\vdots$}                    & \multicolumn{1}{c}{\texttt{NUM2}} \\
+		\multicolumn{1}{c}{$\vdots$} & \multicolumn{1}{c}{$\vdots$}                    & \multicolumn{1}{c}{$\vdots$}      \\
+		\texttt{x4000 0000}          & \texttt{000001 00000 00001 0000 0000 0000 0000} & \texttt{ADDI R1,R0,\#0}           \\
+		\texttt{x4000 0004}          & \texttt{001100 00000 00101 0011 0000 0000 0000} & \texttt{LHI\ \ R5,x3000}          \\
+		\texttt{x4000 0008}          & \texttt{011100 00101 00010 0000 0000 0000 0000} & \texttt{LW\ \ \ R2,0(R5)}         \\
+		\texttt{x4000 000C}          & \texttt{001001 00010 00011 0000 0000 0000 0001} & \texttt{ANDI R3,R2,\#1}           \\
+		\texttt{x4000 0010}          & \texttt{101001 00011 00000 0000 0000 0000 0100} & \texttt{BNEZ R3,\#4}              \\
+		\texttt{x4000 0014}          & \texttt{000011 00010 00010 0000 0000 0000 0001} & \texttt{SUBI R2,R2,\#1}           \\
+		\texttt{x4000 0018}          & \texttt{000000 00001 00010 00001 00000 000001}  & \texttt{ADD\ \ R1,R1,R2}           \\
+		\texttt{x4000 001C}          & \texttt{000011 00010 00010 0000 0000 0000 0010} & \texttt{SUBI R2,R2,\#2}           \\
+		\texttt{x4000 0020}          & \texttt{010010 00010 00011 0000 0000 0000 0000} & \texttt{SLEI R3,R2,\#0}           \\
+		\texttt{x4000 0024}          & \texttt{101000 00011 00000 1111 1111 1111 0000} & \texttt{BEQZ R3,xFFF0}            \\
+		\texttt{x4000 0028}          & \texttt{001100 00000 00101 0011 0000 0000 0000} & \texttt{LHI\ \ R5,x3000}          \\
+		\texttt{x4000 002C}          & \texttt{011101 00101 00001 0000 0000 0000 0100} & \texttt{SW\ \ \ \#4(R5),R1}       \\
+		\texttt{x4000 0030}          & \texttt{110000 00000000000000000000000000}      & \texttt{TRAP x00}                 \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+2). 该程序求小于等于\texttt{NUM1}的所有正奇数之和，并存入\texttt{NUM2}.\\
+\noindent\textbf{11.12}\quad 立即数为16位补码，最大只能表示32767，100000超出了范围，可将
+
+{\centering \texttt{ADDI R1,R0,\#100000}
+
+}
+
+\noindent 拆分为以下两句
+
+{\centering \texttt{ADDI R1,R0,\#25000\ }
+
+\texttt{SLLI R1,R1,\#2\ \ \ \ \ }
+
+}
+
+\noindent 汇编时即可发现这一问题.
+
+\noindent\textbf{11.13}\\
+\indent\texttt{LB\ \ \ R5,0(R3)}\\
+\indent\texttt{ADDI R2,R2,\#1}\\
+\indent\texttt{ADDI R3,R3,\#1}\\
+\indent\texttt{ADDI R1,R0,\#1}\\
+\noindent\textbf{11.14}\\
+\indent\texttt{SUBI R2,R2,\#1}\\
+\indent\texttt{LB\ \ \ R5,0(R3)}\\
+\indent\texttt{ADDI R3,R3,\#1}\\
+\indent\texttt{SUBI R2,R2,\#1}\\
+\noindent\textbf{11.16}\\
+\indent\texttt{(R16:c, R17:x, R18:y)}\\
+\indent\texttt{ADDI R16,R0,x63}\\
+\indent\texttt{ADDI R17,R0,\#5}\\
+\noindent\textbf{11.17}\\
+\indent\texttt{(R16:i, R17:j, R18:k, R19:x)}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ ADDI R8,R0,R16}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ BNEZ R16,CASE1}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ ADD\ \ R19,R18,R17}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ J\ \ \ \ EXIT}\\
+\indent\texttt{CASE1:\ \ \ SUBI R16,R16,\#1}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ BNEZ R16,CASE2}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ SUB\ \ R19,R18,R17}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ J\ \ \ \ EXIT}\\
+\indent\texttt{CASE2:\ \ \ SUBI R16,R16,\#1}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ BNEZ R16,DEFAULT}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ ADDI R19,R18,\#2}\\
+\indent\texttt{\ \ \ \ \ \ \ \ \ J\ \ \ \ EXIT}\\
+\indent\texttt{DEFAULT: SUB\ \ R19,R8,R18}\\
+\indent\texttt{EXIT:\ \ \ \ TRAP x00}\\
+\end{document}

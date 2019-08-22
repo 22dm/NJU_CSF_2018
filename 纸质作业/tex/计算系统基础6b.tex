@@ -1,0 +1,145 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{listings} 
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\lstset{numbers=left, basicstyle=\ttfamily}
+\geometry{a4paper,left=2.5cm,right=2cm,top=2.5cm,bottom=2cm,headsep=0.5cm}
+
+\begin{document} 
+
+\newpagestyle{main}{            
+    \sethead {第六周\hspace{1em}第二次} {《计算系统基础》作业} {nyako}
+    \setfoot {} {\thepage} {\today}
+    \headrule
+    \footrule
+}
+\pagestyle{main}
+\linespread{1}
+\paragraph{6.3}
+\begin{center}
+    \begin{tabular}{rccc}
+        \toprule
+        二进制数&假设其为原码&假设其为反码&假设其为补码\\
+        \midrule
+        \texttt{0111}&\texttt{7}&\texttt{7}&\texttt{7}\\
+        \texttt{1110}&\texttt{-6}&\texttt{-1}&\texttt{-2}\\
+        \texttt{1111 1111}&\texttt{-127}&\texttt{0}&\texttt{-1}\\
+        \texttt{1000 0000}&\texttt{0}&\texttt{-127}&\texttt{-128}\\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\paragraph{6.4}
+\begin{center}
+    \begin{tabular}{rccc}
+        \toprule
+        十进制数&转化为原码&转化为反码&转化为补码\\
+        \midrule
+        \texttt{-86}&\texttt{1101 0110}&\texttt{1010 1001}&\texttt{1010 1010}\\
+        \texttt{85}&\texttt{0101 0101}&\texttt{0101 0101}&\texttt{0101 0101}\\
+        \texttt{-127}&\texttt{1111 1111}&\texttt{1000 0000}&\texttt{1000 0001}\\
+        \texttt{127}&\texttt{0111 1111}&\texttt{0111 1111}&\texttt{0111 1111}\\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\paragraph{6.5}
+是$4$的倍数.
+\paragraph{6.7}
+除以$2$并向下取整.
+\paragraph{6.8}
+\begin{center}
+    \begin{tabular}{r@{}c@{}lccc}
+        \toprule
+        \multicolumn{3}{c}{运算式}&结果&是否溢出\\
+        \midrule
+        \texttt{1101}&\texttt{ + }&\texttt{ 0101 0101}&\texttt{82}&否\\
+        \texttt{0111}&\texttt{ + }&\texttt{ 0101}&\texttt{-4}&是\\
+        \texttt{1111 1111}&\texttt{ + }&\texttt{ \quad01}&\texttt{0}&否\\
+        \texttt{01}&\texttt{ + }&\texttt{ 1110}&\texttt{-1}&否\\
+        \texttt{0111}&\texttt{ + }&\texttt{ 0001}&\texttt{-8}&是\\
+        \texttt{1000}&\texttt{ + }&\texttt{ \quad11}&\texttt{7}&是\\
+        \texttt{1000}&\texttt{ + }&\texttt{ 0011 0011}&\texttt{47}&否\\
+        \texttt{1010}&\texttt{ + }&\texttt{\quad101}&\texttt{7}&是\\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\paragraph{6.10}
+\begin{center}
+    \renewcommand\arraystretch{1.5}
+    \begin{tabular}{rccc}
+        \toprule
+        十进制数&IEEE浮点数（二进制）&IEEE浮点数（十六进制）\\
+        \midrule
+        \texttt{32.9375}&\texttt{0\quad1000 0100\quad000 0011 1100 0000 0000 0000}&\texttt{x42 03 C0 00}\\
+        {$\texttt{-32}\frac{\texttt{45}}{\texttt{128}}$}&\texttt{1\quad1000 0100\quad000 0001 0110 1000 0000 0000}&\texttt{xC2 01 68 00}\\
+        {$\texttt{-2}^\texttt{-140}$}&\texttt{1\quad0000 0000\quad000 0000 0000 0010 0000 0000}&\texttt{x80 00 02 00}\\
+        \texttt{65536}&\texttt{0\quad1000 1111\quad000 0000 0000 0000 0000 0000}&\texttt{x47 80 00 00}\\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\pagebreak
+\paragraph{6.11\\}
+\begin{center}
+    \renewcommand\arraystretch{1.5}
+    \begin{tabular}{cccc}
+        \toprule
+        IEEE浮点数&十进制数\\
+        \midrule
+        \texttt{0\quad0000 0001\quad000 0000 0000 0000 0000 0000}&{$\texttt{2}^\texttt{-126}$}\\
+        \texttt{0\quad0000 0000\quad000 0000 0010 0000 0000 0000}&{$\texttt{2}^\texttt{-136}$}\\
+        \texttt{1\quad1111 1011\quad000 0000 0000 0000 0000 0000}&{$\texttt{-2}^\texttt{124}$}\\
+        \texttt{1\quad1000 0001\quad101 0100 0000 0000 0000 0000}&{\texttt{-6.625}}\\
+        \texttt{0\quad0111 1101\quad010 1010 0000 0000 0000 0000}&{$\texttt{0.33203125}=\frac{\texttt{85}}{\texttt{256}}$}\\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\paragraph{6.12}
+\begin{center}
+    \begin{tabular}{cccc}
+        \toprule
+        补码&十进制数\\
+        \midrule
+        \texttt{x80 00}&\texttt{-32768}\\
+        \texttt{x7F FF}&\texttt{32767}\\
+        \texttt{x12 34}&\texttt{4660}\\
+        \texttt{xAB CD}&\texttt{-21555}\\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\paragraph{6.13}
+\begin{center}
+    \begin{tabular}{rccc}
+        \toprule
+        十进制数&补码\\
+        \midrule
+        \texttt{-86}&\texttt{xFF AA}\\
+        \texttt{85}&\texttt{x00 55}\\
+        \texttt{-127}&\texttt{xFF 81}\\
+        \texttt{127}&\texttt{x00 7F}\\
+        \bottomrule
+    \end{tabular}
+\end{center}
+\paragraph{6.14\\}
+1).
+\begin{lstlisting}[showspaces=true, showlines=true]
+N
+
+\end{lstlisting}
+2).
+\begin{lstlisting}[showspaces=true, showlines=true]
+82
+
+\end{lstlisting}
+
+\linespread{1.5}
+
+\paragraph{6.15\\}
+从键盘读入一个字符，并打印其对应的ASCII码；\\
+从键盘读入一个十进制ASCII码，并打印其对应的字符.
+
+\paragraph{6.17\\}
+不会，在循环体执行2147483647次后，i会溢出为 -2147483648，从而结束循环.
+\end{document}

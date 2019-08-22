@@ -1,0 +1,14 @@
+            .DATA	x30000000
+            .TEXT   x40000000
+            .GLOBAL  MAIN
+MAIN :      TRAP    x09
+            SUBI    R8, R4, x30
+            TRAP    x09
+            ADD     R4, R8, R4
+            SLTI    R8, R4, x41
+            SLEI    R9, R4, x39
+            XOR     R8, R8, R9
+            BEQZ    R8, OUTPUT
+            ADDI    R4, R4, #7
+OUTPUT :    TRAP    x07
+            TRAP    x00
